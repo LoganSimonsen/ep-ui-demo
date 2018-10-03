@@ -8,6 +8,7 @@ import AppBar from 'material-ui/AppBar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
+import MediaCard from './MediaCard'
 import Toggles from './Toggles.js';
 
 
@@ -56,8 +57,12 @@ class App extends Component {
             <MenuItem onClick={this.handleTouchTap}>My account</MenuItem><Divider />
             <MenuItem onClick={this.handleTouchTap}>Logout</MenuItem>
           </Menu>
-          <Toggles class="toggles" />
+          <div className="bodyWrap">
+            <Toggles class="toggles" />
+            <MediaCard />
+          </div>
         </MuiThemeProvider>
+
       </div>
 
 

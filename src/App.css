@@ -2,10 +2,18 @@
   display: flex;
   flex-direction: row;
   text-align: center;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
 }
 .AppBar {
   /* flex-direction: column; */
 }
+
+.bodyWrap {
+  /* display: flex; */
+}
+.mediaCard {
+  min-width: 345px;
+}
+
