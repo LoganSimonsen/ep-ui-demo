@@ -1,9 +1,12 @@
+body {
+  background: rgb(34, 34, 34, .025);
+}
 .App {
   display: flex;
   flex-direction: row;
   text-align: center;
   justify-content: space-around;
-  align-items: center;
+  /* align-items: center; */
   flex-wrap: wrap;
 }
 .AppBar {
@@ -11,9 +14,43 @@
 }
 
 .bodyWrap {
-  /* display: flex; */
+  display: inline-flex;
+  flex-wrap: wrap;
+  /* align-content: center; */
+  justify-content: space-around;
+  width: 95%;
+  
 }
 .mediaCard {
   min-width: 345px;
+  
 }
-
+.MuiPaper-root-8 {
+  margin: 10px !important;
+  margin-top: 100px !important;
+}
+break{
+  flex-basis: 100%;
+  width: 0px; 
+  height: 0px; 
+  overflow: hidden;
+}
+.cardWrap {
+  display: inline-flex;
+  flex-wrap: wrap;
+  position: relative;
+  text-align: center;
+  align-items: space-around;
+  justify-content: space-around;
+  width: 100%;
+}
+.line {
+  width: 80vw;
+}
+#cardy {
+  margin: 10px;
+}
+form {
+  display: inline-flex;
+  flex-direction: column;
+}
