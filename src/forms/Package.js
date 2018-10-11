@@ -56,8 +56,10 @@ class Package extends React.Component {
     constructor() {
         super()
         this.state = {
-            name: '',
-            age: '',
+            weight: '',
+            width: '',
+            height: '',
+            length: '',
             multiline: 'Controlled',
             currency: 'EUR',
             checkedB: false,
@@ -84,6 +86,7 @@ class Package extends React.Component {
                     <FormControlLabel
                         control={
                             <Checkbox
+                                id="checkboxPackage"
                                 checked={this.state.checkedB}
                                 onChange={this.handleChange("checkedB")}
                                 value="checkedB"
@@ -94,39 +97,44 @@ class Package extends React.Component {
                     />
                 </FormGroup>
                 {!this.state.checkedB && <TextField variant="outlined"
-                    id="standard-length"
-                    label="Length"
+                    id="length"
+                    label="Length in Inches"
+                    type="number"
                     className={classes.textField}
-                    value={this.state.name}
-                    // onChange={this.handleChange('name')}
+                    value={this.state.length}
+                    onChange={this.handleChange('length')}
                     margin="normal"
                 />}
                 {!this.state.checkedB && <TextField variant="outlined"
-                    id="standard-width"
-                    label="Width"
+                    id="width"
+                    label="Width in Inches"
                     className={classes.textField}
-                    value={this.state.name}
-                    // onChange={this.handleChange('name')}
+                    value={this.state.width}
+                    onChange={this.handleChange('width')}
                     margin="normal"
+                    type="number"
                 />} <break></break>
                 {!this.state.checkedB && <TextField variant="outlined"
-                    id="standard-height"
-                    label="height"
+                    id="height"
+                    label="height in Inches"
                     className={classes.textField}
-                    value={this.state.name}
-                    // onChange={this.handleChange('name')}
+                    value={this.state.height}
+                    onChange={this.handleChange('height')}
                     margin="normal"
+                    type="number"
                 />}
                 <TextField variant="outlined"
                     required
-                    id="standard-weight"
-                    label="Weight"
+                    id="weight"
+                    label="Weight in Ounces"
                     className={classes.textField}
-                    value={this.state.name}
-                    // onChange={this.handleChange('name')}
+                    value={this.state.weight}
+                    onChange={this.handleChange('weight')}
                     margin="normal"
+                    type="number"
                 />
                 {this.state.checkedB && <TextField
+                    id="PDP"
                     variant="outlined"
                     select
                     label="Predefined Packages"

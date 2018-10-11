@@ -80,25 +80,25 @@ class Toggles extends React.Component {
           style={styles.toggle}
           labelStyle={styles.toggle}
           onToggle={this.handleToggle}
-          data-isToggled={this.state.Toggled}
+          dataIsToggled={this.state.Toggled}
           toggled={this.state.Toggled}
         />
-        <Toggle
+        {/* <Toggle
           id="FedExToggle"
           label="FedEx"
           style={styles.toggle}
           labelStyle={styles.toggle}
           onToggle={this.handleToggle2}
-          data-isToggled={this.state.Toggled2}
+          dataIsToggled={this.state.Toggled2}
           toggled={this.state.Toggled2}
-        />
+        /> */}
         <Toggle
           id="UPSToggle"
           label="UPS"
           style={styles.toggle}
           labelStyle={styles.toggle}
           onToggle={this.handleToggle3}
-          data-isToggled={this.state.Toggled3}
+          dataIsToggled={this.state.Toggled3}
           toggled={this.state.Toggled3}
         />
         {/* <Toggle

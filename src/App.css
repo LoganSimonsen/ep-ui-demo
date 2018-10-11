@@ -50,7 +50,23 @@ break{
 #cardy {
   margin: 10px;
 }
+#cardy>button{
+  min-height: 170px;
+}
 form {
   display: inline-flex;
   flex-direction: column;
+}
+.resultsWrapper {
+  display: inline-flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: space-around;
+  
+}
+.cardy {
+  
+}
+.swal2-content{
+  font-size: .9em !important;
 }
