@@ -2,3 +2,13 @@ This is a React App with Material-ui forms designed to collect data needed for g
 
 ** Next Update: build out functionality for carrier toggles. Need to pass in carrier account ID's to limit rates to only those the user wishes to see. Will need to use enviromental variables to obscur carrier ID's from users.
 
+In order to use this application you will need an EasyPost Test or Production API key. Register at easypost.com
+
+You will also need to establish carrier accounts and register them on the easypost dashboard at which point you should be given carrier account id's. EasyPost has integrations with multiple shipping carriers, so it is possible to add more carriers and modify the code to support them appropriately.
+
+.env file should look like this:
+
+testkey=<your easypost test API key>
+prodkey=<your easypost production key>
+USPSAccount=<carrier account id>
+UPSAccount=<carrier account id>
