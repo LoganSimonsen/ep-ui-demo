@@ -8,10 +8,7 @@ You will also need to establish carrier accounts and register them on the easypo
 
 .env file template:
 
-testkey=(your easypost test API key)
-
-prodkey=(your easypost production key)
-
-USPSAccount=(your USPS carrier account id)
-
-UPSAccount=(your UPS carrier account id)
+  testkey=(your easypost test API key)
+  prodkey=(your easypost production key)
+  USPSAccount=(your USPS carrier account id)
+  UPSAccount=(your UPS carrier account id)
