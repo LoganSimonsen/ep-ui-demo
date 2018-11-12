@@ -70,3 +70,20 @@ form {
 .swal2-content{
   font-size: .9em !important;
 }
+.errors {
+  max-width: 1000px;
+  text-overflow: wrap;
+}
+td,tr {
+  text-align: center;
+
+}
+#swal2-items {
+  align-content: center;
+}
+table {
+  margin: 0 auto;
+}
+.optionsWrapper {
+  flex: unset;
+}

@@ -8,28 +8,34 @@ const bodyParser = require('body-parser');
 
 const EasyPost = require('@easypost/api');
 
-const apiKey = process.env.testkey; //test!
-// const apiKey = process.env.prodkey; //prod!!
+const apiKey = process.env.testkey; // easypost test environment!
+// const apiKey = process.env.prodkey; //production environment!!
 
 const api = new EasyPost(apiKey);
+let carriers = [];
 
 app.use(cors({
     origin: 'http://localhost:3000'
 }));
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.post("/rates", (req, res) => {
-    // console.log(req.body);
-    // res.send(req.body.shipment.shipment.toName);
     let ship = req.body.shipment;
     ship = ship.shipment;
-
+    carriers = [];
+    if (ship.USPS) {
+        carriers.push(process.env.USPSAccount)
+    };
+    if (ship.UPS) {
+        carriers.push(process.env.UPSAccount)
+    };
     const parcel = new api.Parcel({
         length: ship.length,
         width: ship.width,
         height: ship.height,
-        // predefined_package: "Letter",
+        // predefined_package: "Letter", // oh yes, still need to build out backend functionality for predefined parcels
         weight: ship.width,
     })
 
@@ -41,8 +47,8 @@ app.post("/rates", (req, res) => {
         state: ship.toState,
         country: ship.toCountry,
         zip: ship.toZip,
-        // verify: 'delivery'
-        // phone: "469-123-4567"
+        // verify: 'delivery' // would be used to verify addresses using EasyPost Address validation, not on current road map
+        // phone: "" // some carriers require phone number, planning to implement this
     });
 
     const fromAddress = new api.Address({
@@ -53,42 +59,27 @@ app.post("/rates", (req, res) => {
         state: ship.fromState,
         country: ship.fromCountry,
         zip: ship.fromZip,
-        // email: 'logan.simonsen@easypost.com',
-        // phone: "469-123-4567"
+        // email: '', // email address is a pretty standard thing to want to include, planning to implement this soon
+        // phone: ""
     });
-    console.log(toAddress, fromAddress, parcel);
+
+    // console.log(ship); // for troubleshooting purposes
     const shipment = new api.Shipment({
         to_address: toAddress,
         from_address: fromAddress,
         parcel: parcel,
-        // carrier_accounts: ["ca_c895919c23164f9eb125173714c2ba69"],
-        // customs_info: customsInfo,
-        // is_return: true,
-        // options: {
-        //   ups_return_service: "electronic",
-
-        //   bill_third_party_account: "F12345"
-        // "alcohol": "1",
-        // "print_custom_2_code": "PO",
-        //   "label_format": "PDF",
-        //   label_size: "4x4"
-        // "receiver_liquor_license": "false",
-        // "label_date": "2018-09-17T00:00:00.000-0500",
-        // "delivery_confirmation": "ADULT_SIGNATURE",
-        // "print_custom_1": "custom1code",
-        // "print_custom_code_1": "PO",
-        // "print_custom_2": "custom2text",
-        // "print_custom_3": "custom3text",
-        // "invoice_number": "INVOICE12345"
-        // "print_custom_3_code": "DP"
-        // payment: { type: "COLLECT" }
-        // }
+        carrier_accounts: carriers,
+        // customs_info: customsInfo, // for international shipments, not on current MVP
+        // is_return: true, // for creating return labels, not on current MVP
+        options: {
+            label_size: ship.labelSize,
+            label_format: ship.labelFormat
+        }
     })
     const result = shipment.save().then((result) => { res.send(result) }).catch(console.log);
 
 
 });
 
-// app.get('/', (req, res) => res.send('Hello World!'))
 
 app.listen(port, () => console.log(`listening on port ${port}!`))

@@ -8,10 +8,12 @@ import AppBar from 'material-ui/AppBar';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Divider from '@material-ui/core/Divider';
-import MediaCard from './MediaCard';
+// import MediaCard from './MediaCard';
 import Toggles from './Toggles.js';
 import ToAddressForm from './forms/ToAddressForm';
 import FromAddressForm from './forms/FromAddressForm';
+import LabelSize from './forms/LabelSize';
+import LabelFormat from './forms/LabelFormat';
 import Button from '@material-ui/core/Button';
 import Package from './forms/Package';
 import axios from "axios";
@@ -23,15 +25,20 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Swal from 'sweetalert2'
+import routes from "./routes";
 
-const styles = {
-  card: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-};
+// require('dotenv').config();
+
+let carriers = [];
+
+// const styles = {
+//   card: {
+//     maxWidth: 345,
+//   },
+//   media: {
+//     height: 140,
+//   },
+// };
 
 class App extends Component {
   constructor(props) {
@@ -40,7 +47,8 @@ class App extends Component {
       anchorEl: null,
       rates: "",
       isLoading: false,
-      data: []
+      data: [],
+      messages: []
     }
     this.handleClick = this.handleClick.bind(this);
     this.handleTouchTap = this.handleTouchTap.bind(this);
@@ -51,12 +59,10 @@ class App extends Component {
   }
 
   handleClick(e) {
-    console.log("click", e);
     this.setState({ anchorEl: e.currentTarget });
   }
 
   handleTouchTap(e) {
-    console.log("touchTap", e);
     this.setState({ anchorEl: null });
   }
   getRates() {
@@ -82,6 +88,8 @@ class App extends Component {
       setPDP = document.getElementById("PDP").value
     }
     let shipment = {
+      labelSize: document.getElementById('labelSizeValue').value,
+      labelFormat: document.getElementById('labelFormatValue').value,
       fromName: document.getElementById("from-name").value,
       fromStreet1: document.getElementById("from-street1").value,
       fromStreet2: document.getElementById("from-street2").value,
@@ -97,7 +105,6 @@ class App extends Component {
       toCountry: document.getElementById("to-country").value,
       toZip: document.getElementById("to-zip").value,
       USPS: document.getElementById("USPSToggle").checked,
-      // FEDEX: document.getElementById("FedExToggle").checked,
       UPS: document.getElementById("UPSToggle").checked,
       length: parseInt(setLength),
       width: parseInt(setWidth),
@@ -110,12 +117,14 @@ class App extends Component {
   }
 
   dotGet(shipment) {
-    console.log(document.getElementById("checkboxPackage").checked)
     let that = this;
     axios.post(`http://localhost:3001/rates`, { shipment }).then(function (response) {
+      let temp = response.data.messages;
       that.setState({ data: response.data.rates });
+      that.setState({ messages: temp })
+      console.log(that.state.messages);
       that.stopLoading();
-      console.log(that.state.data)
+
     })
   }
 
@@ -126,9 +135,10 @@ class App extends Component {
   showDetails(e, d) {
     e.preventDefault();
     Swal({
-      html:
-        `<span>Rate ID: ${d.id}</span><br/>` +
-        `<span>Shipment ID: ${d.shipment_id}</span>`
+      html: `<h3>Rate Details</h3><table className="detailsTable"><tr><td><b>Shipment ID:</b> ${d.shipment_id}</td></tr>` +
+        `<tr><td><b>Rate ID:</b> ${d.id}</td></tr>` +
+        `<tr><td><b>Carrier:</b> ${d.carrier}</td></tr>` +
+        `</table>`
     })
   }
 
@@ -153,6 +163,14 @@ class App extends Component {
             <Typography component="span">
               {d.service}
             </Typography>
+            {d.est_delivery_days && <Typography component="span">
+              <break></break>
+              Estimated Days for Delivery: {d.est_delivery_days}
+            </Typography>}
+            {d.delivery_days && d.delivery_date_guaranteed && <Typography component="span">
+              <break></break>
+              Guaranteed Delivery Days: {d.delivery_days}
+            </Typography>}
           </CardContent>
         </CardActionArea>
         <CardActions>
@@ -165,11 +183,18 @@ class App extends Component {
         </CardActions>
       </Card>
       )
-    });
+    })
+    // let errors = this.state.messages.map((d, i) => {
+    //   return (
+    //     <div className='errors'>
+    //       {d}
+    //     </div>
 
+    //   )
+    // })
     return (
       <div className="App" >
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        {window.location.hash === '#/' && <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <AppBar
             title="Compare Shipping Retail Rates"
             iconClassNameRight="muidocs-icon-navigation-expand-more"
@@ -185,8 +210,8 @@ class App extends Component {
             onClose={this.handleClose}
           >
             <MenuItem onClick={this.handleTouchTap}>&larr;</MenuItem><Divider />
-            <MenuItem onClick={this.handleTouchTap}>Profile</MenuItem><Divider />
-            <MenuItem onClick={this.handleTouchTap}>My account</MenuItem><Divider />
+            <MenuItem onClick={this.handleTouchTap}>Get Rates</MenuItem><Divider />
+            <MenuItem onClick={this.handleTouchTap}>Purchase Rate</MenuItem><Divider />
             <MenuItem onClick={this.handleTouchTap}>Logout</MenuItem>
           </Menu>
 
@@ -206,7 +231,11 @@ class App extends Component {
               <h3>Package</h3>
               <Package />
             </div>
-
+            <div class='optionsWrapper'>
+              <h3>Options</h3>
+              <LabelSize /><br></br>
+              <LabelFormat />
+            </div>
           </div>}<break></break>
           {!this.state.rates && <Button color="primary" variant="outlined" onClick={this.getRates}>
             Submit
@@ -225,13 +254,14 @@ class App extends Component {
               {this.state.data && this.state.rates && !this.state.isLoading &&
                 <div className="resultsWrapper">
                   {results}
+                  <break></break>
+                  {/* {errors} */}
                 </div>
               }
             </div>
           }
-
-        </MuiThemeProvider>
-
+        </MuiThemeProvider>}
+        {routes}
       </div >
 
 
