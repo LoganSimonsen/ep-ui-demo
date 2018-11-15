@@ -31,12 +31,15 @@ app.post("/rates", (req, res) => {
     if (ship.UPS) {
         carriers.push(process.env.UPSAccount)
     };
+
+    console.log(ship.length, ship.width, ship.height, ship.weight, ship.predefinedPackage);
+
     const parcel = new api.Parcel({
         length: ship.length,
         width: ship.width,
         height: ship.height,
-        // predefined_package: "Letter", // oh yes, still need to build out backend functionality for predefined parcels
-        weight: ship.width,
+        predefined_package: ship.predefinedPackage,
+        weight: ship.weight,
     })
 
     const toAddress = new api.Address({

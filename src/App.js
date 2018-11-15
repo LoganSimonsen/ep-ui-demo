@@ -231,7 +231,7 @@ class App extends Component {
               <h3>Package</h3>
               <Package />
             </div>
-            <div class='optionsWrapper'>
+            <div className='optionsWrapper'>
               <h3>Options</h3>
               <LabelSize /><br></br>
               <LabelFormat />
@@ -246,7 +246,7 @@ class App extends Component {
           </ul><break></break>
           {this.state.isLoading && <CircularIndeterminate />}
           <break></break>
-          <h3>Rates</h3>
+          {this.state.rates && <h3>Rates</h3>}
 
           {this.state.rates && !this.state.isLoading &&
             <div className='cardWrap'>
