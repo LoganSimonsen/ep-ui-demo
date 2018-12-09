@@ -15,7 +15,12 @@ In order to use this application you will need an EasyPost Test or Production AP
 
 You will also need to establish carrier accounts and register them on the easypost dashboard at which point you should be given carrier account id's. EasyPost has integrations with multiple shipping carriers, so it is possible to add more carriers and modify the code to support them appropriately.
 
-.env file template:
+## Running the Node Server:
+```
+node server
+```
+
+## .env file template:
   ```
   testkey=(your easypost test API key)
   prodkey=(your easypost production key)

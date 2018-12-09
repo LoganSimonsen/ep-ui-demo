@@ -74,7 +74,7 @@ class App extends Component {
     let setPDP = 'null';
     this.setState({ isLoading: true })
     if (document.getElementById("length")) {
-      let setLength = document.getElementById("length").value
+      setLength = document.getElementById("length").value
     }
     if (document.getElementById("width")) {
       setWidth = document.getElementById("width").value
@@ -118,14 +118,13 @@ class App extends Component {
   }
 
   dotGet(shipment) {
-    let that = this;
+    let that = this; // this is a way to access this.state within the scope of the below nested function
     axios.post(`http://localhost:3001/rates`, { shipment }).then(function (response) {
       let temp = response.data.messages;
-      that.setState({ data: response.data.rates });
+      that.setState({ data: response.data.rates }); //see here we are referencing that.state instead of this.state
       that.setState({ messages: temp })
       console.log(that.state.messages);
       that.stopLoading();
-
     })
   }
 
@@ -134,7 +133,9 @@ class App extends Component {
   }
 
   showDetails(e, d) {
-    e.preventDefault();
+    e.preventDefault(); //preventing some default logic that normally happens with an onclick event.
+    //Below we are going to display some shipment/rate identifying numbers when the user clicks on 'details'. 
+    // EasyPost persists these ID's in their system so you can refer to them again. We are displaying them with Sweet Alerts
     Swal({
       html: `<h3>Rate Details</h3><table className="detailsTable"><tr><td><b>Shipment ID:</b> ${d.shipment_id}</td></tr>` +
         `<tr><td><b>Rate ID:</b> ${d.id}</td></tr>` +
@@ -146,7 +147,7 @@ class App extends Component {
 
   render() {
     const { anchorEl } = this.state;
-    let results = this.state.data.map((d, i) => {
+    let results = this.state.data.map((d, i) => { // Mapping through results and rendering cards only as many as are needed
       return (<Card id="cardy">
         <CardActionArea className="mediaCard">
           <CardMedia
@@ -176,7 +177,7 @@ class App extends Component {
         </CardActionArea>
         <CardActions>
           {/* <Button size="small" color="primary">
-              Share
+              Purchase
   </Button> */}
           <Button size="small" color="default" onClick={e => this.showDetails(e, d)}>
             Details
@@ -188,7 +189,7 @@ class App extends Component {
       </Card>
       )
     })
-    // let errors = this.state.messages.map((d, i) => {
+    // let errors = this.state.messages.map((d, i) => {  // was thinking about how to handle rate error messages should they occur, future plans.
     //   return (
     //     <div className='errors'>
     //       {d}
@@ -223,7 +224,6 @@ class App extends Component {
             <Divider />
             <MenuItem onClick={this.handleTouchTap}>Logout</MenuItem>
           </Menu>
-
           {!this.state.rates && window.location.hash === '#/' && <div className="bodyWrap">
             <div>
               <Toggles className="toggles" />
@@ -259,7 +259,6 @@ class App extends Component {
 
           {this.state.rates && !this.state.isLoading &&
             <div className='cardWrap'>
-
               {this.state.data && this.state.rates && !this.state.isLoading &&
                 <div className="resultsWrapper">
                   {results}
