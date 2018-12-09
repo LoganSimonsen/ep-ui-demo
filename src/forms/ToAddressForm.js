@@ -93,7 +93,8 @@ class ToAddressForm extends React.Component {
                     id="to-country"
                     label="Country"
                     className={classes.textField}
-                    value={this.state.country}
+                    // value={this.state.country} 
+                    value="US" // currently only US is supported pending possible addition of international shipping
                     onChange={this.handleChange('country')}
                     margin="normal"
                 />

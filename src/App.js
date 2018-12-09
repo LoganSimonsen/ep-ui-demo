@@ -24,8 +24,9 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import routes from "./routes";
+import { Link } from 'react-router-dom';
 
 // require('dotenv').config();
 
@@ -177,9 +178,12 @@ class App extends Component {
           {/* <Button size="small" color="primary">
               Share
   </Button> */}
-          <Button size="small" color="primary" onClick={e => this.showDetails(e, d)}>
+          <Button size="small" color="default" onClick={e => this.showDetails(e, d)}>
             Details
   </Button>
+          <Button size="small" color="primary"><Link to='/Purchase' >
+            Purchase
+            </Link></Button>
         </CardActions>
       </Card>
       )
@@ -194,7 +198,7 @@ class App extends Component {
     // })
     return (
       <div className="App" >
-        {window.location.hash === '#/' && <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
+        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <AppBar
             title="Compare Shipping Retail Rates"
             iconClassNameRight="muidocs-icon-navigation-expand-more"
@@ -209,13 +213,18 @@ class App extends Component {
             open={Boolean(anchorEl)}
             onClose={this.handleClose}
           >
-            <MenuItem onClick={this.handleTouchTap}>&larr;</MenuItem><Divider />
-            <MenuItem onClick={this.handleTouchTap}>Get Rates</MenuItem><Divider />
-            <MenuItem onClick={this.handleTouchTap}>Purchase Rate</MenuItem><Divider />
+            <MenuItem onClick={this.handleTouchTap}>&larr;</MenuItem>
+            <Divider />
+            <Link to={{ pathname: '/' }}><MenuItem onClick={this.handleTouchTap}>Get Rates</MenuItem></Link>
+            <Divider />
+            <Link to={{ pathname: '/purchase', state: { rate: 'bar' } }}>
+              <MenuItem onClick={this.handleTouchTap}>Purchase Rate</MenuItem>
+            </Link>
+            <Divider />
             <MenuItem onClick={this.handleTouchTap}>Logout</MenuItem>
           </Menu>
 
-          {!this.state.rates && <div className="bodyWrap">
+          {!this.state.rates && window.location.hash === '#/' && <div className="bodyWrap">
             <div>
               <Toggles className="toggles" />
             </div>
@@ -237,7 +246,7 @@ class App extends Component {
               <LabelFormat />
             </div>
           </div>}<break></break>
-          {!this.state.rates && <Button color="primary" variant="outlined" onClick={this.getRates}>
+          {!this.state.rates && window.location.hash === '#/' && <Button color="primary" variant="outlined" onClick={this.getRates}>
             Submit
             </Button>}
           <break></break>
@@ -260,7 +269,7 @@ class App extends Component {
               }
             </div>
           }
-        </MuiThemeProvider>}
+        </MuiThemeProvider>
         {routes}
       </div >
 

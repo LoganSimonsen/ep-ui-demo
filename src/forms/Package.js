@@ -16,6 +16,34 @@ const packages = [
         label: 'Letter',
     },
     {
+        value: 'Card',
+        label: 'Card',
+    },
+    {
+        value: 'Flat',
+        label: 'Flat',
+    },
+    {
+        value: 'Parcel',
+        label: 'Parcel',
+    },
+    {
+        value: 'LargeParcel',
+        label: 'LargeParcel',
+    },
+    {
+        value: 'IrregularParcel',
+        label: 'IrregularParcel',
+    },
+    {
+        value: 'FlatRateEnvelope',
+        label: 'FlatRateEnvelope',
+    },
+    {
+        value: 'SmallFlatRateEnvelope',
+        label: 'SmallFlatRateEnvelope',
+    },
+    {
         value: 'SmallFlatRateBox',
         label: 'SmallFlatRateBox',
     },
@@ -28,8 +56,8 @@ const packages = [
         label: 'LargeFlatRateBox',
     },
     {
-        value: 'FlatRateEnvelope',
-        label: 'FlatRateEnvelope',
+        value: 'SoftPak',
+        label: 'SoftPak',
     },
 ];
 
@@ -63,7 +91,7 @@ class Package extends React.Component {
             multiline: 'Controlled',
             currency: 'EUR',
             checkedB: false,
-            weightRange: ""
+            package: ''
         };
         // this.handleChange = this.handleChange.bind(this);
     }
@@ -71,7 +99,7 @@ class Package extends React.Component {
     handleChange = name => event => {
         if (name === "checkedB") {
             this.setState({ [name]: event.target.checked });
-            this.setState({ weightRange: "" })
+            this.setState({ package: '' })
         } else {
             this.setState({ [name]: event.target.value })
         }
@@ -137,10 +165,10 @@ class Package extends React.Component {
                     id="PDP"
                     variant="outlined"
                     select
-                    label="Predefined Packages"
+                    label="Predefined Package"
                     className={classNames(classes.margin, classes.textField)}
-                    value={this.state.weightRange}
-                    onChange={this.handleChange('weightRange')}
+                    value={this.state.package}
+                    onChange={this.handleChange('package')}
                     InputProps={{
                         startAdornment: <InputAdornment position="start"></InputAdornment>,
                     }}
