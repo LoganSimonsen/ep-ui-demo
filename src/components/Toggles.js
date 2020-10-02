@@ -1,5 +1,6 @@
-import React from 'react';
-import Toggle from 'material-ui/Toggle';
+import React from "react";
+import Toggle from "material-ui/Toggle";
+import axios from "axios";
 
 const styles = {
   block: {
@@ -7,72 +8,80 @@ const styles = {
   },
   toggle: {
     marginBottom: 16,
-    color: 'black',
+    color: "black",
   },
   thumbOff: {
-    backgroundColor: '#ffcccc',
+    backgroundColor: "#ffcccc",
   },
   trackOff: {
-    backgroundColor: '#ff9d9d',
+    backgroundColor: "#ff9d9d",
   },
   thumbSwitched: {
-    backgroundColor: 'red',
+    backgroundColor: "red",
   },
   trackSwitched: {
-    backgroundColor: '#ff9d9d',
+    backgroundColor: "#ff9d9d",
   },
   labelStyle: {
-    color: 'red',
+    color: "red",
   },
 };
-
 
 class Toggles extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      alignment: 'left',
-      formats: ['bold'],
+      alignment: "left",
+      formats: ["bold"],
       Toggled: true,
       Toggled2: true,
-      Toggled3: true
-    }
+      Toggled3: true,
+      carrierAccounts: [],
+    };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleToggle2 = this.handleToggle2.bind(this);
     this.handleToggle3 = this.handleToggle3.bind(this);
     this.handleFormat = this.handleFormat.bind(this);
   }
-  handleFormat() {
+  handleFormat() {}
 
+  componentDidMount() {
+    let that = this;
+    axios
+      .get("http://localhost:3001/carrierAccounts")
+      .then(function (response) {
+        that.setState({ carrierAccounts: response });
+        console.log(that.state.carrierAccounts);
+      });
   }
 
   handleToggle(e) {
     if (this.state.Toggled) {
-      this.setState({ Toggled: false })
+      this.setState({ Toggled: false });
     } else {
-      this.setState({ Toggled: true })
+      this.setState({ Toggled: true });
     }
   }
 
   handleToggle2(e) {
     if (this.state.Toggled2) {
-      this.setState({ Toggled2: false })
+      this.setState({ Toggled2: false });
     } else {
-      this.setState({ Toggled2: true })
+      this.setState({ Toggled2: true });
     }
   }
 
   handleToggle3(e) {
     if (this.state.Toggled3) {
-      this.setState({ Toggled3: false })
+      this.setState({ Toggled3: false });
     } else {
-      this.setState({ Toggled3: true })
+      this.setState({ Toggled3: true });
     }
   }
 
   render() {
     return (
-      <div style={styles.block} >
+      <div style={styles.block}>
         <h3>Get Rates For:</h3>
         <Toggle
           id="USPSToggle"
@@ -130,6 +139,6 @@ class Toggles extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default Toggles;

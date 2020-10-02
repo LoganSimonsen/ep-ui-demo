@@ -1,5 +1,5 @@
 body {
-  background: rgb(34, 34, 34, .025);
+  background: rgb(34, 34, 34, 0.025);
 }
 .App {
   display: flex;
@@ -19,20 +19,18 @@ body {
   /* align-content: center; */
   justify-content: space-around;
   width: 95%;
-  
 }
 .mediaCard {
   min-width: 345px;
-  
 }
 .MuiPaper-root-8 {
   margin: 10px !important;
   margin-top: 100px !important;
 }
-break{
+break {
   flex-basis: 100%;
-  width: 0px; 
-  height: 0px; 
+  width: 0px;
+  height: 0px;
   overflow: hidden;
 }
 .cardWrap {
@@ -50,7 +48,7 @@ break{
 #cardy {
   margin: 10px;
 }
-#cardy>button{
+#cardy > button {
   min-height: 170px;
 }
 form {
@@ -62,21 +60,19 @@ form {
   flex-wrap: wrap;
   margin: 0 auto;
   justify-content: space-around;
-  
 }
 .cardy {
-  
 }
-.swal2-content{
-  font-size: .9em !important;
+.swal2-content {
+  font-size: 0.9em !important;
 }
 .errors {
   max-width: 1000px;
   text-overflow: wrap;
 }
-td,tr {
+td,
+tr {
   text-align: center;
-
 }
 #swal2-items {
   align-content: center;
@@ -86,4 +82,20 @@ table {
 }
 .optionsWrapper {
   flex: unset;
+}
+.mediaImg {
+  /* objectFit: 'cover'; */
+  width: 265px !important;
+  height: 120px !important;
+  margin: 0 auto;
+  justify-content: space-around;
+  position: relative !important;
+  top: 0px !important;
+}
+.mediaCard {
+  height: 302px;
+  vertical-align: top;
+}
+.getRates {
+  margin-top: 50px;
 }

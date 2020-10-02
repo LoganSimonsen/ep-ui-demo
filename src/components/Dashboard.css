@@ -1,0 +1,129 @@
+.Dashboard {
+  text-align: center;
+  font-size: calc(6px + 1vmin);
+  font-family: monospace;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.Dash-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.Dash-header {
+  background-color: #282c34;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  top: 0;
+  margin: 15px;
+}
+
+.Dash-link {
+  color: #61dafb;
+}
+
+#myInput {
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  overflow: hidden;
+  width: inherit;
+  text-align: center;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.table {
+  border-collapse: collapse;
+  overflow: scroll;
+  font-size: inherit;
+  margin: 10px;
+}
+
+.table,
+.th,
+.td {
+  border: 0.5px solid #282c34;
+  padding: 15px;
+}
+.td {
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.th {
+  color: white;
+  background-color: #282c34;
+}
+.mode {
+  position: absolute;
+  left: 5px;
+  top: 50px;
+  color: greenyellow;
+  font-size: small;
+}
+.time {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: black;
+  font-size: small;
+}
+.statusDelivered {
+  background: greenyellow;
+}
+.statusInTransit {
+  background: yellow;
+}
+.fa-refresh {
+  position: absolute;
+  color: greenyellow;
+  margin: 15px;
+  top: 25px;
+  right: 5px;
+  transition: transform 0.5s;
+  zoom: 1.3;
+}
+.fa-refresh:active {
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+}
+.swal2-content {
+  font-size: 0.6em !important;
+  text-align: left !important;
+}
+.shipID {
+  flex-wrap: nowrap;
+  flex-direction: row;
+  /* overflow: scroll; */
+}
+#info {
+  zoom: 0.3;
+  margin: 0 auto;
+}
+.shipButton {
+  font-size: calc(6px + 4.5vmin) !important;
+  font-family: monospace;
+  border: none;
+}
+.paginationButtons {
+  margin: 10px;
+}
+.paginationWrap {
+  align-content: space-between;
+  display: flex;
+  justify-content: space-around;
+  width: 100vw;
+}
