@@ -63,6 +63,7 @@ class App extends Component {
 
   handleTouchTap(e) {
     this.setState({ anchorEl: null });
+    this.setState({rates: ""});
   }
   getRates() {
     let setLength = 1;
@@ -147,11 +148,16 @@ class App extends Component {
     e.preventDefault(); //preventing some default logic that normally happens with an onclick event.
     //Below we are going to display some shipment/rate identifying numbers when the user clicks on 'details'.
     // EasyPost persists these ID's in their system so you can refer to them again. We are displaying them with Sweet Alerts
+    console.log(d);
     Swal({
       html:
         `<h3>Rate Details</h3><table className="detailsTable"><tr><td><b>Shipment ID:</b> ${d.shipment_id}</td></tr>` +
         `<tr><td><b>Rate ID:</b> ${d.id}</td></tr>` +
         `<tr><td><b>Carrier:</b> ${d.carrier}</td></tr>` +
+        `<tr><td><b>Service:</b> ${d.service}</td></tr>` +
+        `<tr><td><b>delivery_date:</b> ${d.delivery_date}</td></tr>` +
+        `<tr><td><b>delivery_date_guaranteed:</b> ${d.delivery_date_guaranteed}</td></tr>` +
+        `<tr><td><b>delivery_days:</b> ${d.delivery_days}</td></tr>` +
         `</table>`,
     });
   }
@@ -268,18 +274,18 @@ class App extends Component {
             <Divider />
             <MenuItem onClick={this.handleTouchTap}>Logout</MenuItem>
           </Menu>
-          {!this.state.rates && window.location.hash === "#/" && (
+          {!this.state.rates && window.location.hash === "#/" && window.location.hash !== "#/dashboard" && (
             <div className="bodyWrap">
               <div>
                 <Toggles className="toggles" />
               </div>
               <div>
-                <h3>To Address</h3>
-                <ToAddressForm />
-              </div>
-              <div>
                 <h3>From Address</h3>
                 <FromAddressForm />
+              </div>
+              <div>
+                <h3>To Address</h3>
+                <ToAddressForm />
               </div>
               <div>
                 <h3>Package</h3>
@@ -293,7 +299,6 @@ class App extends Component {
               </div>
             </div>
           )}
-          <br></br>
           {!this.state.rates && window.location.hash === "#/" && (
             <Button
               className="getRates"
@@ -310,6 +315,7 @@ class App extends Component {
           </ul>
           <br></br> */}
           {this.state.isLoading && <CircularIndeterminate />}
+          <br></br>
           {this.state.rates && <h3>Rates</h3>}
           {this.state.rates && !this.state.isLoading && (
             <div className="cardWrap">
@@ -318,7 +324,7 @@ class App extends Component {
                   {results}
                   <br></br>
                   <br></br>
-                  <RateErrors errors={this.state.messages} />
+                  {this.state.messages.length > 0 && <RateErrors errors={this.state.messages} />}
                 </div>
               )}
             </div>

@@ -5,8 +5,8 @@ body {
   display: flex;
   flex-direction: row;
   text-align: center;
-  justify-content: space-around;
-  /* align-items: center; */
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
 }
 .AppBar {
@@ -64,7 +64,7 @@ form {
 .cardy {
 }
 .swal2-content {
-  font-size: 0.9em !important;
+  font-size: em !important;
 }
 .errors {
   max-width: 1000px;
@@ -98,4 +98,6 @@ table {
 }
 .getRates {
   margin-top: 50px;
+  align-self: center;
+  justify-self: center;
 }
