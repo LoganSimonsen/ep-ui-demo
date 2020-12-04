@@ -1,5 +1,6 @@
 import React from "react";
 import Toggle from "material-ui/Toggle";
+import Divider from '@material-ui/core/Divider';
 import axios from "axios";
 
 const styles = {
@@ -70,15 +71,17 @@ class Toggles extends React.Component {
   }
 
   render() {
+    console.log(this.state.carrierAccounts.data)
     return (
       <div style={styles.block}>
         <h3>Get Rates For:</h3>
         {this.state.carrierAccounts.data && (
           <div>
             {this.state.carrierAccounts.data.map((ca, index) => (
+              <div style={{margin: '10px'}}>
               <Toggle
                 id={ca.id}
-                label={ca.readable}
+                label={ca.readable + " | "+ ca.description}
                 style={styles.toggle}
                 labelStyle={styles.toggle}
                 className="toggle"
@@ -86,7 +89,11 @@ class Toggles extends React.Component {
                 data-toggled={ca.toggled}
                 toggled={ca.toggled}
               />
+              
+              <Divider  />
+              </div>
             ))}
+            
           </div>
         )}
       </div>

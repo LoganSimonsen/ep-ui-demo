@@ -39,7 +39,7 @@ app.use(cors());
 
 function getAllShipments() {
   api.Shipment.all({
-    page_size: 1000,
+    page_size: 200,
     before_id: beforeId,
     start_datetime: startDay, // should be less than 30 days.
   }).then((s) => {

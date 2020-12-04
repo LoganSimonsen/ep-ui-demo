@@ -101,7 +101,9 @@
   -webkit-transform: rotate(90deg);
 }
 .swal2-content {
-  font-size: 0.6em;
+  text-align: left !important;
+}
+.swal2-popup #swal2-content {
   text-align: left !important;
 }
 .shipID {

@@ -154,6 +154,7 @@ class App extends Component {
         `<h3>Rate Details</h3><table className="detailsTable"><tr><td><b>Shipment ID:</b> ${d.shipment_id}</td></tr>` +
         `<tr><td><b>Rate ID:</b> ${d.id}</td></tr>` +
         `<tr><td><b>Carrier:</b> ${d.carrier}</td></tr>` +
+        `<tr><td><b>Carrier Account:</b> ${d.carrier_account_id}</td></tr>` +
         `<tr><td><b>Service:</b> ${d.service}</td></tr>` +
         `<tr><td><b>delivery_date:</b> ${d.delivery_date}</td></tr>` +
         `<tr><td><b>delivery_date_guaranteed:</b> ${d.delivery_date_guaranteed}</td></tr>` +
@@ -231,14 +232,7 @@ class App extends Component {
         </Card>
       );
     });
-    // let errors = this.state.messages.map((d, i) => {  // was thinking about how to handle rate error messages should they occur, future plans.
-    //   return (
-    //     <div className='errors'>
-    //       {d}
-    //     </div>
 
-    //   )
-    // })
     return (
       <div className="App">
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
@@ -316,7 +310,7 @@ class App extends Component {
           <br></br> */}
           {this.state.isLoading && <CircularIndeterminate />}
           <br></br>
-          {this.state.rates && <h3>Rates</h3>}
+          {this.state.data.length > 0 && this.state.rates && <h3>Rates</h3>}
           {this.state.rates && !this.state.isLoading && (
             <div className="cardWrap">
               {this.state.data && this.state.rates && !this.state.isLoading && (
